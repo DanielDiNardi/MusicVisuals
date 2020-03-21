@@ -6,20 +6,22 @@ import ddf.minim.analysis.FFT;
 
 public abstract class Visual extends PApplet
 {
-	public int frameSize = 1024;
-	public int sampleRate = 44100;
+	private int frameSize = 512;
+	private int sampleRate = 44100;
 
-	public float[] bands;
-	public float[] lerpedBands;
+	private float[] bands;
+	private float[] smoothedBands;
 
-	public Minim minim;
-	public AudioInput ai;
-	public AudioSample as;
-	public AudioBuffer ab;
-	FFT fft;
+	private Minim minim;
+	private AudioInput ai;
+	private AudioPlayer ap;
+	private AudioBuffer ab;
+	private FFT fft;
 
-	public float amplitude  = 0;
-	public float lerpedAmplitude = 0;
+	private float amplitude  = 0;
+	private float smothedAmplitude = 0;
+
+	
 	
 	public void startMinim() 
 	{
@@ -28,7 +30,7 @@ public abstract class Visual extends PApplet
 		fft = new FFT(frameSize, sampleRate);
 
 		bands = new float[(int) log2(frameSize)];
-  		lerpedBands = new float[bands.length];
+  		smoothedBands = new float[bands.length];
 
 	}
 
@@ -58,7 +60,7 @@ public abstract class Visual extends PApplet
 			total += abs(ab.get(i));
 		}
 		amplitude = total / ab.size();
-		lerpedAmplitude = PApplet.lerp(lerpedAmplitude, amplitude, 0.1f);
+		smothedAmplitude = PApplet.lerp(smothedAmplitude, amplitude, 0.1f);
 	}
 
 
@@ -73,7 +75,7 @@ public abstract class Visual extends PApplet
 			}
 			average /= (float) w;
 			bands[i] = average * 5.0f;
-			lerpedBands[i] = lerp(lerpedBands[i], bands[i], 0.05f);
+			smoothedBands[i] = lerp(smoothedBands[i], bands[i], 0.05f);
 		}
 	}
 
@@ -85,7 +87,56 @@ public abstract class Visual extends PApplet
 
 	public void loadAudio(String filename)
 	{
-		as = minim.loadSample(filename, frameSize);
-		ab = as.left;
+		ap = minim.loadFile(filename, frameSize);
+		ab = ap.left;
+	}
+
+	public int getFrameSize() {
+		return frameSize;
+	}
+
+	public void setFrameSize(int frameSize) {
+		this.frameSize = frameSize;
+	}
+
+	public int getSampleRate() {
+		return sampleRate;
+	}
+
+	public void setSampleRate(int sampleRate) {
+		this.sampleRate = sampleRate;
+	}
+
+	public float[] getBands() {
+		return bands;
+	}
+
+	public float[] getSmoothedBands() {
+		return smoothedBands;
+	}
+
+	public Minim getMinim() {
+		return minim;
+	}
+
+	public AudioInput getAudioInput() {
+		return ai;
+	}
+
+
+	public AudioBuffer getAudioBuffer() {
+		return ab;
+	}
+
+	public float getAmplitude() {
+		return amplitude;
+	}
+
+	public float getSmoothedAmplitude() {
+		return smothedAmplitude;
+	}
+
+	public AudioPlayer getAudioPlayer() {
+		return ap;
 	}
 }
