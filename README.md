@@ -1,8 +1,8 @@
 # Music Visualiser Project
 
-Name:
+Name:Daniel Di Nardi
 
-Student Number: 
+Student Number:C18487682
 
 ## Instructions
 - Fork this repository and use it a starter project for your assignment
