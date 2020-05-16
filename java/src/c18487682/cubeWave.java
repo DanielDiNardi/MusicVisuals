@@ -26,10 +26,9 @@ public class cubeWave extends Visual
         setFrameSize(256);
 
         startMinim();
-        loadAudio("Timecop1983 - On the Run.mp3");
+        loadAudio("Baby's On Fire.mp3");
 
-        ortho(-1000, 1900, -1000, 1000, -2000, 2000);
-        //ortho(left, right, bottom, top, near, far);
+        //ortho(-1000, 1900, -1000, 1000, -2000, 2000);
     }
 
     float ya = QUARTER_PI;
@@ -40,7 +39,7 @@ public class cubeWave extends Visual
     float px = width / 2;
     float py = height / 2;
     float amp = 0;
-    float maxD = dist(0, 0, 400, -400);
+    float maxD = dist(0, 0, 700, -700);
     int colour = 0;
 
     public void draw()
@@ -55,9 +54,38 @@ public class cubeWave extends Visual
         }
 
         background(0);
-        // fill(map(getSmoothedAmplitude(), 0f, 1f, 0f, 255f), 200f, 150f);
         fill(colour, 200f, 150f);
+        rectangles();
+        circles();
         carpet();
+    }
+
+    void rectangles()
+    {
+        noStroke();
+        int size = 20;
+        float space = width / 20;
+        int counter = 0;
+
+        for(int i = 0; i < width; i++)
+        {
+            if(counter < 6 || counter > 12)
+            {
+                rect(space, height / 2, size, getSmoothedAmplitude() * 1000);
+                rect(space, height / 2, size, getSmoothedAmplitude() * -1000);
+            }
+
+            counter++;
+            space += width / 20;
+        }
+    }
+
+    void circles()
+    {
+        ellipse(width / 2.5f - (getSmoothedAmplitude() * 1000), height / 3f - (getSmoothedAmplitude() * 1000), 1 * (getSmoothedAmplitude() * 1000), 1 * (getSmoothedAmplitude() * 1000));
+        ellipse(width / 1.65f + (getSmoothedAmplitude() * 1000), height / 3f - (getSmoothedAmplitude() * 1000), 1 * (getSmoothedAmplitude() * 1000), 1 * (getSmoothedAmplitude() * 1000));
+        ellipse(width / 2.5f - (getSmoothedAmplitude() * 1000), height / 1.5f + (getSmoothedAmplitude() * 1000), 1 * (getSmoothedAmplitude() * 1000), 1 * (getSmoothedAmplitude() * 1000));
+        ellipse(width / 1.65f + (getSmoothedAmplitude() * 1000), height / 1.5f + (getSmoothedAmplitude() * 1000), 1 * (getSmoothedAmplitude() * 1000), 1 * (getSmoothedAmplitude() * 1000));
     }
 
     void carpet()
@@ -69,16 +97,13 @@ public class cubeWave extends Visual
             
         float offset = 0;
 
-        // calculateFFT();
-        // calculateFrequencyBands();
         calculateAverageAmplitude();
-        translate(width/2, height/2, 0);
+        translate(width/4, height/2, -500);
         rotateX(xa);
         rotateY(ya);
         stroke(0);
         lights();
 
-        // println(getSmoothedBands());
 
         for(int i = 0; i < col; i++)
         {
@@ -91,8 +116,6 @@ public class cubeWave extends Visual
                 offset = map(d, 0, maxD, -2, 1);
                 float a = (amp) + offset;
                 float h = map(sin(a), 0, 1, 0, y);
-
-                // fill(map(getSmoothedAmplitude(), 0f, 1f, 0f, 255f), 200f, 150f); 
                 translate(px, 0, 0);
                 box(x, h, x);
 
@@ -110,6 +133,5 @@ public class cubeWave extends Visual
         amp += getSmoothedAmplitude() * 0.25f;
     }
 }
-
 
 

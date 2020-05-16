@@ -1,7 +1,5 @@
 package ie.tudublin;
 
-// import example.CubeVisual;
-// import example.MyVisual;
 import c18487682.cubeWave;
 
 public class Main
