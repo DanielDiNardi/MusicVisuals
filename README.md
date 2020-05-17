@@ -17,6 +17,8 @@ This assignment is a music visualiser that takes the amplitude and frequency of 
 Songs:
 [![YouTube]()](https://www.youtube.com/watch?v=yHipUThfNOc)
 [![YouTube]()](https://www.youtube.com/watch?v=PaZXPx1kdtg&t=0s)
+
+Video:[![YouTube]()](https://www.youtube.com/watch?v=AuDpUV8au8w&feature=youtu.be)
 # Instructions
 To start the song, you press space, and the song begins.
 # How it works
