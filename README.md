@@ -15,10 +15,10 @@ Student Number:C18487682
 This assignment is a music visualiser that takes the amplitude and frequency of the music and changes the size, colour, and movement of the objects.
 
 Songs:
-[![YouTube]()](https://www.youtube.com/watch?v=yHipUThfNOc)
-[![YouTube]()](https://www.youtube.com/watch?v=PaZXPx1kdtg&t=0s)
+[![Baby's on Fire]()](https://www.youtube.com/watch?v=yHipUThfNOc)
+[![Star]()](https://www.youtube.com/watch?v=PaZXPx1kdtg&t=0s)
 
-Video:[![YouTube]()](https://www.youtube.com/watch?v=AuDpUV8au8w&feature=youtu.be)
+Video:[![Video]()](https://www.youtube.com/watch?v=AuDpUV8au8w&feature=youtu.be)
 # Instructions
 To start the song, you press space, and the song begins.
 # How it works
