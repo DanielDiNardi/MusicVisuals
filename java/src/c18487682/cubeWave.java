@@ -1,10 +1,10 @@
 package c18487682;
 
 import ie.tudublin.Visual;
+import ie.tudublin.VisualException;
 
 public class cubeWave extends Visual
 {
-
     public void settings()
     {
         fullScreen(P3D, SPAN);
@@ -26,7 +26,8 @@ public class cubeWave extends Visual
         setFrameSize(256);
 
         startMinim();
-        loadAudio("Baby's On Fire.mp3");
+        //loadAudio("Baby's On Fire.mp3");
+        loadAudio("STAR.mp3");
 
         //ortho(-1000, 1900, -1000, 1000, -2000, 2000);
     }
@@ -41,9 +42,31 @@ public class cubeWave extends Visual
     float amp = 0;
     float maxD = dist(0, 0, 700, -700);
     int colour = 0;
+    float[] colourBands;
+    int colourBandsCounter = 0;
+    float bandsColour;
 
     public void draw()
     {
+        try 
+        {
+            calculateFFT();
+        } catch (VisualException e) 
+        {
+            e.printStackTrace();
+        }
+        calculateFrequencyBands();
+        colourBands = getSmoothedBands();
+        if(colourBandsCounter < 7 && frameCount % 10 == 0)
+        {
+            bandsColour = map(colourBands[colourBandsCounter], 0, colourBands.length, 0, 255);
+        }
+        colourBandsCounter++;
+        if(colourBandsCounter > 7)
+        {
+            colourBandsCounter = 0;
+        }
+
         if(colour < 255)
         {
             colour += getSmoothedAmplitude() * 8;
@@ -54,9 +77,10 @@ public class cubeWave extends Visual
         }
 
         background(0);
-        fill(colour, 200f, 150f);
+        fill(bandsColour % 255, 200, 150);
         rectangles();
         circles();
+        fill(colour, 200f, 150f);
         carpet();
     }
 
